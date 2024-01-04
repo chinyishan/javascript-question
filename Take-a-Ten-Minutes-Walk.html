@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Take a Ten Minutes Walk</title>
+</head>
+<body>
+  <p>Take a Ten Minutes Walk</p>
+</body>
+<script>
+function isValidWalk(walk) {
+  console.log(walk);
+    if (walk.length === 10) {
+    let N = walk.filter((n) => n === 'n')
+    let S = walk.filter((s) => s === 's')
+    let W = walk.filter((w) => w === 'w')
+    let E = walk.filter((e) => e === 'e')
+
+    if (N.length === S.length && W.length === E.length) {
+      return true
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+}
+isValidWalk(['n','s','n','s','n','s','n','s','n','s'])
+</script>
+</html>

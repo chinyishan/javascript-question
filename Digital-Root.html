@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+    Digital root is the recursive sum of all the digits in a number.
+    Given n, take the sum of the digits of n. If that value has more than one digit, continue reducing in this way until a single-digit number is produced. The input will be a non-negative integer.</p>
+</body>
+<script>
+  // function digitalRoot(n) {
+  //   if (n > 9) {
+  //     do {
+  //       let num = n.toString().split('').map(Number);
+  //       let numValue = num.reduce((total, number) => {
+  //         return total + number
+  //       })
+  //       n = numValue
+  //     }
+  //     while (n > 9)
+  //     console.log(n);
+  //     return n
+  //   }
+  // }
+  // digitalRoot(0)
+
+
+  function digitalRoot(n) {
+    let recursive = n.toString().split('').reduce((sum, s) => {
+      return sum += Number(s);
+    }, 0);
+    console.log(recursive);
+    return recursive < 10 ? recursive : digitalRoot(recursive);
+  }
+  
+  // wait, what?
+  // function digitalRoot(n) {
+  //   return (n - 1) % 9 + 1;
+  // }
+  digitalRoot(493193)
+</script>
+</html>
