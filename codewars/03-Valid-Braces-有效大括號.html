@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valid Braces 有效大括號</title>
+</head>
+<body>
+  <h3>Valid Braces</h3>
+</body>
+<script>
+/* 
+	doTest("()))", false);
+  doTest("()", true);
+  doTest("[]", true);
+  doTest("{}", true);
+  doTest("(){}[]", true);
+  doTest("([{}])", true);
+  doTest("(}", false);
+  doTest("[(])", false);
+  doTest("({})[({})]", true);
+  doTest("(})", false);
+  doTest("(({{[[]]}}))", true);
+  doTest("{}({})[]", true);
+  doTest(")(}{][", false);
+  doTest("())({}}{()][][", false);
+  doTest("(((({{", false);
+  doTest("}}]]))}])", false);
+*/
+
+// 自解
+function validBraces(braces){
+  console.log(braces.split(''));
+}
+validBraces("({})[({})]");
+</script>
+</html>
