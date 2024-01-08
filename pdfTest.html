@@ -3922,13 +3922,22 @@
           //   };
           // },
 
-          handlePreview() {
+          async handlePreview() {
             this.showPrint = true;
             const pagNum = Math.ceil(this.A01.length / 28);
-            let mainData = "";
+            this.list = Array.from({ length: pagNum }, (_, i) => i);
+            // let mainData = "";
+
+            const printArea = document.getElementById("printArea");
+            printArea.innerHTML = ""; // 清空 printArea
+
             for (let i = 0; i < pagNum; i++) {
               let selectionData = this.A01.slice(i * 28, (i + 1) * 28);
-              this.list.push(i);
+              // this.list.push(i);
+
+              let pageContainer = document.createElement("div");
+              pageContainer.className = "GroupPromotion-small gt-page num" + i;
+
               if (i + 1 == pagNum) {
                 mainData +=
                   '<div class="GroupPromotion-small gt-page num' +
@@ -4023,28 +4032,46 @@
             };
 
             // 抓取各個圖片的DOM元素，並把它裝入doc這個陣列裡
-            for (let item in this.list) {
-              const element1 = document.getElementById("pagNum" + item);
-              console.log(element1);
-              this.domList.push(element1);
-            }
-            console.log(this.domList, "this.domList");
+            // for (let item in this.list) {
+            //   const element1 = document.getElementById("pagNum" + item);
+            //   this.domList.push(element1);
+            // }
+
+            const printArea = document.getElementById("printArea");
+            const pages = printArea.getElementsByClassName("gt-page");
+
+            const worker = new Worker("/worker.js"); // 你需要创建一个 Web Worker 文件
+            worker.postMessage({ opt, pages });
+
+            worker.onmessage = (event) => {
+              const pdfData = event.data;
+              const pdfBlob = new Blob([pdfData], { type: "application/pdf" });
+              const pdfUrl = URL.createObjectURL(pdfBlob);
+
+              // 这里可以使用下载库或者直接创建链接进行下载
+              const a = document.createElement("a");
+              a.href = pdfUrl;
+              a.download = "demo.pdf";
+              a.click();
+
+              worker.terminate();
+            };
 
             // 開始進行列印
-            let doc = html2pdf().set(opt).from(this.domList[0]).toPdf();
-            for (let j = 1; j < this.domList.length; j++) {
-              doc = doc
-                .get("pdf")
-                .then((pdf) => {
-                  pdf.addPage();
-                })
-                .from(this.domList[j])
-                .toContainer()
-                .toCanvas()
-                .toPdf();
-            }
-            // 列印完成輸出done
-            doc.save().then(() => console.dir("done"));
+            // let doc = html2pdf().set(opt).from(this.domList[0]).toPdf();
+            // for (let j = 1; j < this.domList.length; j++) {
+            //   doc = doc
+            //     .get("pdf")
+            //     .then((pdf) => {
+            //       pdf.addPage();
+            //     })
+            //     .from(this.domList[j])
+            //     .toContainer()
+            //     .toCanvas()
+            //     .toPdf();
+            // }
+            // // 列印完成輸出done
+            // doc.save().then(() => console.dir("done"));
           },
         },
       });
