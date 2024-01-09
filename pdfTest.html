@@ -210,62 +210,29 @@
     <h3>html2pdf</h3>
     <div id="app">
       <button @click="download()">click download</button>
-      <button @click="handlePreview">預覽</button>
-      <!-- <button @click="exportToPDF()">Export to PDF</button> -->
-      <!-- <button @click="printSpecificHTML()">print Specific HTML</button> -->
       <br />
       {{ list }}
       <br />
       {{ domList }}
-      <!-- template -->
-      <!-- v-for="item of list" -->
       <div class="printBg" v-show="showPrint">
         <div class="printArea" id="printArea"></div>
       </div>
-
-      <!-- <div class="printBg">
-        <div id="printArea">
-          <div
-            class="gt-page beforeBorder GroupPromotion-small"
-            v-for="(val, index) of list"
-            :id="`pagNum`+index"
-            :key="index"
-          >
-            <div class="customCard-GroupPromotion-small" v-for="card of A01">
-              <div class="product-title">{{ card.product_title }}</div>
-              <div class="flex-between">
-                <div class="points">{{ card.points }}</div>
-                <div class="barcode">{{ card.barcode }}</div>
-              </div>
-              <div class="flex-between">
-                <div class="price"></div>
-                <div class="item-id">
-                  {{ card.item_id }}<span class="level">{{ card.level }}</span>
-                </div>
-              </div>
-              <div class="flex-between subject">{{ card.subject }}</div>
-              <div class="content">
-                <p class="detail-number">{{ card.price }}<span>元</span></p>
-              </div>
-              <div class="campaign-date">
-                <div>活動期間</div>
-                <p>2023/02/01-2023/02/28</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
       integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+
+    <!-- <script type="text/javascript" src="'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" ></script> -->
+    
     <script>
-      Vue.config.productionTip = false;
+      Vue.config.productionTip =false;
       new Vue({
         el: "#app",
         data: {
@@ -3811,133 +3778,17 @@
             },
           ],
         },
-        // mounted: function () {
-        //   // 渲染 多 頁
-        //   for (let i = 0; i < 10; i++) {
-        //     this.list.push(i);
-        //   }
-        //   console.log(this.list, "this.list");
-        // },
         created: function () {
           this.handlePreview();
         },
         methods: {
-          // exportToPDF() {
-          //   window.print();
-          // },
-
-          // printSpecificHTML() {
-          //   // 创建一个新的窗口
-          //   const printWindow = window.open("", "_blank");
-
-          //   // 加载要打印的内容
-          //   const pagNum = Math.ceil(this.A01.length / 28);
-
-          //   let mainData = "";
-
-          //   for (let i = 0; i < pagNum; i++) {
-          //     let selectionData = this.A01.slice(i * 28, (i + 1) * 28);
-          //     this.list.push(i);
-          //     if (i + 1 == pagNum) {
-          //       mainData +=
-          //         '<div class="GroupPromotion-small gt-page num' +
-          //         i +
-          //         '"id="pagNum' +
-          //         i +
-          //         '"style="break-after: avoid;">';
-          //     } else {
-          //       mainData +=
-          //         '<div class="GroupPromotion-small gt-page num' +
-          //         i +
-          //         '"id="pagNum' +
-          //         i +
-          //         '">';
-          //     }
-          //     for (let v = 0; v < selectionData.length; v++) {
-          //       mainData += '<div class="customCard-GroupPromotion-small">';
-          //       mainData += '<div class="product-title">';
-          //       if (selectionData[v].product_title != null) {
-          //         mainData += selectionData[v].product_title;
-          //       }
-          //       mainData +=
-          //         '</div><div class="flex-between"><div class="points">';
-          //       if (selectionData[v].points != null) {
-          //         if (selectionData[v].points === "無") {
-          //           mainData += "無積點";
-          //         } else {
-          //           mainData += "可積點";
-          //         }
-          //       }
-          //       mainData += '</div><div class="barcode">';
-          //       if (selectionData[v].barcode != null) {
-          //         mainData += selectionData[v].barcode;
-          //       }
-          //       mainData +=
-          //         '</div></div><div class="flex-between"><div class="price">';
-          //       mainData += '</div><div class="item-id">';
-          //       if (selectionData[v].item_id != null) {
-          //         mainData += selectionData[v].item_id;
-          //       }
-          //       mainData += '<span class="level">';
-          //       if (selectionData[v].level != null) {
-          //         mainData += selectionData[v].level;
-          //       }
-          //       mainData +=
-          //         '</span></div></div><div class="flex-between subject">';
-          //       if (selectionData[v].subject != null) {
-          //         mainData += selectionData[v].subject;
-          //       }
-          //       mainData += '</div><div class="content">';
-          //       if (selectionData[v].content != null) {
-          //         mainData +=
-          //           '<p class="detail-number">' +
-          //           selectionData[v].content +
-          //           "<span>元</span>";
-          //       }
-          //       mainData +=
-          //         '</p></div><div class="campaign-date"><div>活動期間</div><p>';
-          //       if (selectionData[v].campaign_date_start != null) {
-          //         mainData += selectionData[v].campaign_date_start;
-          //       }
-          //       mainData += "-";
-          //       if (selectionData[v].campaign_date_end != null) {
-          //         mainData += selectionData[v].campaign_date_end;
-          //       }
-          //       mainData += "</p></div></div>";
-          //     }
-          //     mainData += "</div>";
-          //   }
-          //   var el = document.getElementById("printArea");
-          //   el.innerHTML = mainData;
-
-          //   printWindow.document.write(mainData);
-
-          //   // 等待内容加载完成后调用 window.print()
-          //   printWindow.onload = function () {
-          //     printWindow.print();
-          //     printWindow.onafterprint = function () {
-          //       // 关闭打印窗口
-          //       printWindow.close();
-          //     };
-          //   };
-          // },
-
           async handlePreview() {
             this.showPrint = true;
             const pagNum = Math.ceil(this.A01.length / 28);
-            this.list = Array.from({ length: pagNum }, (_, i) => i);
-            // let mainData = "";
-
-            const printArea = document.getElementById("printArea");
-            printArea.innerHTML = ""; // 清空 printArea
-
+            let mainData = "";
             for (let i = 0; i < pagNum; i++) {
               let selectionData = this.A01.slice(i * 28, (i + 1) * 28);
-              // this.list.push(i);
-
-              let pageContainer = document.createElement("div");
-              pageContainer.className = "GroupPromotion-small gt-page num" + i;
-
+              this.list.push(i);
               if (i + 1 == pagNum) {
                 mainData +=
                   '<div class="GroupPromotion-small gt-page num' +
@@ -4011,12 +3862,12 @@
             el.innerHTML = mainData;
           },
 
-          download() {
+          async download() {
             // pdf匯出設定
             const opt = {
               margin: 1,
               filename: "demo.pdf",
-              image: { type: "jpg", quality: 0.9 },
+              image: { type: "jpg", quality: 0.7 },
               html2canvas: {
                 dpi: 96,
                 letterRendering: true,
@@ -4031,48 +3882,85 @@
               },
             };
 
-            // 抓取各個圖片的DOM元素，並把它裝入doc這個陣列裡
-            // for (let item in this.list) {
-            //   const element1 = document.getElementById("pagNum" + item);
-            //   this.domList.push(element1);
-            // }
-
             const printArea = document.getElementById("printArea");
             const pages = printArea.getElementsByClassName("gt-page");
 
-            const worker = new Worker("/worker.js"); // 你需要创建一个 Web Worker 文件
-            worker.postMessage({ opt, pages });
+            console.log(printArea);
+            console.log(pages);
+            this.domList = pages;
 
-            worker.onmessage = (event) => {
-              const pdfData = event.data;
-              const pdfBlob = new Blob([pdfData], { type: "application/pdf" });
-              const pdfUrl = URL.createObjectURL(pdfBlob);
+            // 创建 Web Workers 数组
+            const workers = this.createWorkers();
 
-              // 这里可以使用下载库或者直接创建链接进行下载
-              const a = document.createElement("a");
-              a.href = pdfUrl;
-              a.download = "demo.pdf";
-              a.click();
+            // 创建等待所有 Web Workers 完成的 Promise
+            const workerCompletionPromise = new Promise((resolve) => {
+              let workersCompleted = 0;
 
-              worker.terminate();
-            };
+              // 监听每个 Worker 的完成事件
+              workers.forEach((worker) => {
+                worker.onmessage = (event) => {
+                  workersCompleted++;
+                  if (workersCompleted === workers.length) {
+                    resolve();
+                  }
+                };
+              });
+            });
 
-            // 開始進行列印
-            // let doc = html2pdf().set(opt).from(this.domList[0]).toPdf();
-            // for (let j = 1; j < this.domList.length; j++) {
-            //   doc = doc
-            //     .get("pdf")
-            //     .then((pdf) => {
-            //       pdf.addPage();
-            //     })
-            //     .from(this.domList[j])
-            //     .toContainer()
-            //     .toCanvas()
-            //     .toPdf();
-            // }
-            // // 列印完成輸出done
-            // doc.save().then(() => console.dir("done"));
+            // 向每个 Web Worker 发送数据
+            Array.from(pages).forEach((page, index) => {
+              const pageHTML = page.innerHTML; // 提取页面的 HTML 内容
+              const worker = workers[index % workers.length];
+              worker.postMessage({ opt, pageHTML }); // 传递 HTML 内容而不是 DOM 元素
+            });
+
+            // 等待所有 Web Workers 完成
+            await workerCompletionPromise;
+
+            // 收集每个 Worker 生成的 PDF 数据
+            const pdfDataArray = workers.map((worker) => worker.lastPdfData);
+
+            // 在主线程中合并生成的 PDF 数据
+            const combinedPdfData = this.combinePdfData(pdfDataArray);
+
+            // 创建 Blob、生成下载链接并触发点击事件进行下载
+            const pdfBlob = new Blob([combinedPdfData], { type: "application/pdf" });
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+            const a = document.createElement("a");
+            a.href = pdfUrl;
+            a.download = "demo.pdf";
+            a.click();
+
+            // 终止所有 Web Workers
+            workers.forEach((worker) => worker.terminate());
           },
+
+          // 辅助函数
+          createWorkers() {
+            // 创建 Web Workers 数组
+            const numWorkers = this.domList.length; // 根据需要调整工作线程的数量
+            const workers = [];
+
+            for (let i = 0; i < numWorkers; i++) {
+              const worker = new Worker("worker.js");
+              workers.push(worker);
+            }
+
+            return workers;
+          },
+
+          combinePdfData(pdfDataArray) {
+            // 在主线程中合并生成的 PDF 数据
+            // 这里简单地将所有数据连接起来，你可以根据实际情况进行调整
+            return pdfDataArray.join('');
+          },
+
+          //生成 PDF 進度更新
+          progress(value) {
+            value = Math.floor((value * 100));
+            progressText.innerText = value;
+            progressGauge.value = value;
+          }
         },
       });
     </script>

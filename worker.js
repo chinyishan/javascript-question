@@ -1,29 +1,29 @@
 // worker.js
 
-// 监听从主线程传递过来的消息
+importScripts('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+importScripts('https://html2canvas.hertzen.com/dist/html2canvas.js'); // 或者从你的服务器上加载 html2canvas
+
 self.onmessage = function (event) {
-  const { opt, pages } = event.data;
+  console.log(event);
+  const { opt, pageHTMLString } = event.data;
 
-  // 在这里执行耗时操作，生成 PDF 数据
-  const pdfData = generatePdf(opt, pages);
+  // 使用 DOMParser 将 HTML 字符串转换为 DOM 元素
+  const parser = new DOMParser();
+  const pageHTML = parser.parseFromString(pageHTMLString, 'text/html').body;
 
-  // 向主线程发送生成的 PDF 数据
-  self.postMessage(pdfData);
-};
-
-function generatePdf(opt, pages) {
   // 在这里执行生成 PDF 的操作
-  const doc = new jsPDF(opt.jsPDF);
+  let pdf = new jspdf.jsPDF(opt);
 
-  for (const page of pages) {
-    // 使用 html2canvas 将页面转换为图像
-    html2canvas(page, opt.html2canvas).then((canvas) => {
-      const imgData = canvas.toDataURL("image/jpeg", opt.image.quality);
-      doc.addImage(imgData, "JPEG", opt.margin, opt.margin);
-      doc.addPage();
-    });
-  }
+  // 使用 html2canvas 将 HTML 内容转换为图像
+  html2canvas(pageHTML, opt.html2canvas).then((canvas) => {
+    const imgData = canvas.toDataURL("image/jpeg", opt.image.quality);
+    pdf.addImage(imgData, "JPEG", opt.margin, opt.margin);
+    pdf.addPage();
 
-  // 返回生成的 PDF 数据
-  return doc.output();
-}
+    // 获取生成的 PDF 数据
+    const pdfData = pdf.output();
+
+    // 向主线程发送生成的 PDF 数据
+    self.postMessage(pdfData);
+  });
+};
