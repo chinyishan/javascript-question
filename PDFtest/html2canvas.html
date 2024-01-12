@@ -1,221 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>window.print() html2pdf</title>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
-    <!-- <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script> -->
-    <style>
-      * {
-        padding: 0;
-        margin: 0;
-      }
-      .printBg {
-        background: rgb(0, 0, 0, 0.1);
-      }
-      #printArea {
-        display: block;
-        margin: 0 auto;
-      }
-      .gt-page {
-        width: 794px;
-        height: 1122px;
-        margin: 0 auto;
-        background-color: #fff;
-      }
-      .gt-page.GroupPromotion-small {
-        padding: 38px 18px 30px 18px;
-      }
-      .gt-page .customCard-GroupPromotion-small {
-        font-family: "Noto Sans TC", sans-serif;
-        display: inline-block;
-        box-sizing: border-box;
-        vertical-align: top;
-        position: relative;
-        width: 25%;
-        height: 14%;
-        padding: 26px 15px 11px 15px;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>html2canvas</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background: red;
+      border: 1px solid yellow;
+    }
+  </style>
+</head>
+<body>
+  <button>轉換 canvas</button>
+  <div class="box"></div>
 
-      .customCard-GroupPromotion-small:nth-child(4n) {
-        margin-right: 0;
-      }
-
-      .customCard-GroupPromotion-small .product-title {
-        font-size: 12px;
-        font-weight: 700;
-        height: 32px;
-        word-wrap: break-word;
-        word-break: break-all;
-        line-height: 1.2;
-        letter-spacing: 0.8px;
-        margin-bottom: 5.5px;
-        overflow: hidden;
-      }
-
-      .customCard-GroupPromotion-small .flex-between {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 7px;
-        margin-bottom: 3px;
-        transform: scale(0.65);
-        transform-origin: left;
-        width: 150%;
-      }
-
-      .customCard-GroupPromotion-small .flex-between.subject {
-        font-size: 15px;
-        height: 16px;
-        white-space: nowrap;
-        font-weight: 500;
-        margin-bottom: 0;
-        width: max-content;
-        max-width: 150%;
-        margin-top: -2.5px;
-      }
-
-      .customCard-GroupPromotion-small .flex-between div {
-        font-size: 12px;
-        white-space: nowrap;
-        font-weight: 500;
-      }
-
-      .customCard-GroupPromotion-small .flex-between div.item-id .level {
-        display: inline-block;
-        margin-left: 6px;
-      }
-
-      .customCard-GroupPromotion-small .flex-between div:first-child {
-        transform-origin: left;
-        letter-spacing: 0.5px;
-      }
-
-      .customCard-GroupPromotion-small .flex-between div:last-child {
-        transform-origin: right;
-        letter-spacing: 0.45px;
-      }
-
-      .customCard-GroupPromotion-small .content {
-        position: relative;
-        height: 28px;
-      }
-
-      .customCard-GroupPromotion-small .content p {
-        margin: 0;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        font-size: 21px;
-        font-weight: 700;
-        line-height: 1;
-        letter-spacing: 0;
-        color: #ff0000;
-        word-wrap: break-word;
-        word-break: break-all;
-        text-align: center;
-        width: max-content;
-        max-width: 100%;
-        transform: translate(-50%, -50%);
-      }
-
-      .customCard-GroupPromotion-small .content p.detail-number {
-        left: auto;
-        right: 0;
-        transform: translate(0, -50%);
-        font-weight: 900;
-      }
-
-      .customCard-GroupPromotion-small .content p.detail-number span {
-        font-size: 12px;
-        font-weight: 500;
-        color: #000;
-        margin-left: 5px;
-      }
-
-      .customCard-GroupPromotion-small .content p.overload-7 {
-        font-size: 20px !important;
-      }
-
-      .customCard-GroupPromotion-small .content p.overload-8 {
-        font-size: 19px !important;
-      }
-
-      .customCard-GroupPromotion-small .content p.overload-9 {
-        font-size: 18px !important;
-      }
-
-      .customCard-GroupPromotion-small .content p.overload-10 {
-        font-size: 17px !important;
-      }
-
-      .customCard-GroupPromotion-small .content p.overload-11 {
-        font-size: 16px !important;
-      }
-
-      .customCard-GroupPromotion-small .content p.overload-12 {
-        font-size: 15px !important;
-      }
-
-      .customCard-GroupPromotion-small .content p.overload-13 {
-        font-size: 14px !important;
-      }
-
-      .customCard-GroupPromotion-small .content p.overload-14 {
-        font-size: 14px !important;
-      }
-
-      .customCard-GroupPromotion-small .content p.overload-15 {
-        font-size: 12px !important;
-      }
-
-      .customCard-GroupPromotion-small .campaign-date {
-        transform-origin: left;
-        transform: scale(0.6666666666);
-        width: max-content;
-        display: flex;
-        font-weight: 500;
-        margin-bottom: 2px;
-      }
-
-      .customCard-GroupPromotion-small .campaign-date div {
-        font-size: 12px;
-        letter-spacing: 1px;
-        margin-right: 5px;
-      }
-
-      .customCard-GroupPromotion-small .campaign-date p {
-        margin: 0;
-        font-size: 12px;
-        letter-spacing: 0.35px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app">
-      <div class="download" v-show="showDownload">
-        <h3>html2pdf</h3>
-        <button @click="printSpecificHTML()">printSpecificHTML</button>
-        <button @click="print()">window.print()</button>
-        <br />
-        {{ list }}
-        <br />
-        {{ domList }}
-      </div>
-      <div class="printBg" v-show="showPrint">
-        <div class="printArea" id="printArea"></div>
-      </div>
-    </div>
-  </body>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
+  <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+
   <script>
     Vue.config.productionTip = false;
     new Vue({
@@ -3999,4 +3804,5 @@
       },
     });
   </script>
+</body>
 </html>
