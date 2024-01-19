@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04-Basic Math Add or Subtract-基礎數學加減</title>
+</head>
+<body>
+  <h2>Basic Math (Add or Subtract)</h2>
+  <p>In this kata, you will do addition and subtraction on a given string. The return value must be also a string.Note: the input will not be empty.</p>
+</body>
+<script>
+  /*
+    plus +
+    minus +
+  */
+  function calculate(str) {
+    let newStr = str.replaceAll('plus', '+').replaceAll('minus', '-')
+    let Reg = /(-?\d+)/g;
+    let result = newStr.match(Reg)
+
+    let numbers = result.map((i) => {
+      return parseInt(i);
+    });
+
+    function getSum(total, num) {
+      return total + num;
+    }
+
+    let numberValue = numbers.reduce(getSum)
+    console.log(numberValue, 'numberValue');
+
+    return numberValue.toString();
+  }
+  // calculate("1plus2plus3plus4")
+  // calculate('1minus2minus3minus4')
+  calculate('1plus2plus3minus4plus2plus9')
+</script>
+</html>
