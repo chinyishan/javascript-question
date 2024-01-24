@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math方法-pow() sqrt() 和 cbrt()</title>
+</head>
+<body>
+  <h2>
+    <a href="https://www.codewars.com/kata/5733f948d780e27df6000e33/train/javascript">Math方法-pow() sqrt() 和 cbrt()</a>
+  </h2>
+  <p></p>
+</body>
+<script>
+  /* 
+    * Math.sqrt(9)
+    * Math.cbrt(27)
+    * Math.pow(5, 2)
+    * 題目: 
+    * cutCube 函數，接受 2 個參數：volume 和 n。
+    * volume 是立方體的體積，把立方體切成 n 塊狀
+    * 判斷正方體的長度是否為整數。傳回 true 或 false。
+    * 一個正方體不能被平均分成 50 塊或 4 塊。只有立方數（如 8,27,64,125,216...）可以用來平分立方體
+  */
+
+  // 自行解
+  /* 
+    * 先判斷 n 是否為立方根
+    * 計算立方體長度 volume / n
+  */
+  // function cutCube(volume, n){
+  //   if (Math.cbrt(n) % 1 == 0) {
+  //     if (Math.cbrt(volume / n) % 1 == 0) {
+  //       return true
+  //     } else {
+  //       return false
+  //     }
+  //   } else {
+  //     return false
+  //   }
+  // }
+  // cutCube(512, 8)，Math.cbrt(8) = 2，Math.cbrt(512 / 8) = Math.cbrt(64) = 4
+
+  // 他人解
+  // function cutCube(volume, n){
+  //   return !(Math.cbrt(n) % 1) && !(Math.cbrt(volume / n) % 1);
+  // }
+
+  // 他人解 調整
+  function cutCube(volume, n){
+    return (Math.cbrt(n) % 1 == 0) && (Math.cbrt(volume / n) % 1 == 0);
+  }
+
+  console.log(cutCube(512, 8)); // true
+  console.log(cutCube(27, 27)); // true
+  console.log(cutCube(512, 64)); // true
+  console.log(cutCube(50000, 50)); //false
+  console.log(cutCube(432, 16)); //false
+  console.log(cutCube(256, 8)); //false
+  console.log(cutCube(27, 3)); //false
+  console.log(cutCube(123, 456)); //false
+  console.log(cutCube(27, 8)); //false
+
+</script>
+</html>

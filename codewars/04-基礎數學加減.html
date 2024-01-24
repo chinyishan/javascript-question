@@ -12,27 +12,33 @@
 </body>
 <script>
   /*
-    plus +
-    minus +
+  * plus +
+  * minus -
   */
+
+  // 自解
   function calculate(str) {
     let newStr = str.replaceAll('plus', '+').replaceAll('minus', '-')
-    let Reg = /(-?\d+)/g;
-    let result = newStr.match(Reg)
-
-    let numbers = result.map((i) => {
-      return parseInt(i);
-    });
+    let result = newStr.match(/(-?\d+)/g)
 
     function getSum(total, num) {
       return total + num;
     }
 
-    let numberValue = numbers.reduce(getSum)
-    console.log(numberValue, 'numberValue');
+    let numbers = result.map(i => parseInt(i)).reduce(getSum).toString()
 
-    return numberValue.toString();
+    return numbers
   }
+
+
+  /*
+  * 參考Code
+  * eval() 全局屬性/函式，計算 JavaScript 字串，把它當作程式碼來執行
+  */
+  // function calculate(str) {
+  //   return eval(str.replace(/plus/gi, '+').replace(/minus/gi, '-')).toString();
+  // }
+
   // calculate("1plus2plus3plus4")
   // calculate('1minus2minus3minus4')
   calculate('1plus2plus3minus4plus2plus9')

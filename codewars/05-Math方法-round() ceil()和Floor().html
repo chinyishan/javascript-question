@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math方法---round() ceil() 和 Floor()</title>
+</head>
+<body>
+  <h2>Math方法---round() ceil() 和 Floor()</h2>
+  <a href="https://www.codewars.com/kata/5732d3c9791aafb0e4001236/train/javascript">methods of Math---round() ceil() and floor()</a>
+  <p>round() : 四捨五入，按小數部分四捨五入為整數</p>
+  <p>ceil() : 無條件進位，總是向上捨入得到一個大整數</p>
+  <p>floor() : 無條件捨去，總是向下捨去得到一個小整數</p>
+</body>
+<script>
+  /* 
+    * 小數點靠左邊 Math.ceil()
+    * 小數點靠右邊 Math.floor()
+    * 小數點在中間 Math.round()
+    * 
+  */
+
+  // 【自行解】
+  // function roundIt(n){
+  //   let num = n.toString().split(".")
+  //   if(num[0].length < num[1].length) {
+  //     return Math.ceil(n)
+  //   } else if (num[0].length > num[1].length) {
+  //     return Math.floor(n)
+  //   } else {
+  //     return Math.round(n)
+  //   }
+  // }
+
+  // 【其他解】
+  /*
+    * 條件 ? 如果條件為真時的值 : 如果條件為假時的值
+    * a > b 先判斷 "是" "否" 用 floor()
+    * "否" 在判斷 a === b，"是" 套用 round()，"否" 套用 ceil()
+   */
+  function roundIt(n){
+    var [a, b] = n.toString().split('.');
+    return a.length > b.length ? Math.floor(n) : a.length === b.length ? Math.round(n) : Math.ceil(n);
+  }
+
+  console.log(roundIt(3.45));
+  console.log(roundIt(34.5));
+  console.log(roundIt(34.56));
+  console.log(roundIt(1267.56));
+</script>
+</html>
