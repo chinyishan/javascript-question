@@ -7,7 +7,9 @@
   <title>Valid Braces 有效大括號</title>
 </head>
 <body>
-  <h3>Valid Braces</h3>
+  <h2>
+    <a href="https://www.codewars.com/kata/5277c8a221e209d3f6000b56">Valid Braces 有效大括號</a>
+  </h2>
 </body>
 <script>
 /* 
@@ -30,9 +32,65 @@
 */
 
 // 自解
+/* 
+  * /\u0028\u0029/g; //()
+  * /\u005B\u005D/g; //[]
+  * /\u007B\u007D/g; //{}
+  * braces = braces.replace(/\(\)/g, '').replace(/\[\]/g, '').replace(/\{\}/g, '')
+ */
+// function validBraces(braces){
+//   for (let i in braces) {
+//     braces = braces.replace(/\u0028\u0029/g, '').replace(/\u005B\u005D/g, '').replace(/\u007B\u007D/g, '')
+//   }
+//   return braces == '' ? true : false
+// }
+
+//其他-1
 function validBraces(braces){
-  console.log(braces.split(''));
+  while (/\(\)|\[\]|\{\}/g.test(braces)) { 
+    braces = braces.replace(/\(\)|\[\]|\{\}/g,"")
+    console.log(braces);
+  }
+  return !braces.length;
 }
+
+//其他-2
+/* 
+  * 用了一個 Stack（堆疊）來跟蹤括號的 開啟 和 關閉
+  *  matches 物件中 ( key 為開啟括號，value 為關閉括號 )
+  * stack 用來存儲開啟括號的 Stack
+  * for loop 遍歷每一個 braces 中的字元
+  * 如果 currentChar 是開啟括號，matches[currentChar] = 關閉括號，則將其推入 stack，
+  * 如果 currentChar 是關閉括號，檢查 stack 的頂部元素的對應關閉括號是否與 currentChar 匹配。
+  * 如果不匹配，則返回 false
+  * 用這個字元當作property去查詢 matches 中是否有這個屬性值，
+  * 進一步判斷要把該字元放入 stack 中或是 return false
+*/
+// function validBraces(braces){
+//   var matches = { '(':')', '{':'}', '[':']' };
+//   var stack = [];
+//   var currentChar;
+
+//   for (var i=0; i < braces.length; i++) {
+//     currentChar = braces[i];
+
+//     if (matches[currentChar]) { // 開啟括號，matches[currentChar] = ')'、'}'、']'
+//       stack.push(currentChar);
+
+//     } else { // 關閉括號
+//       console.log(stack);
+//       console.log(stack.pop());
+//       if (currentChar !== matches[stack.pop()]) { //將開啟括號 stack.pop() 作為索引，從 matches 物件中取得其對應的關閉括號
+//         return false;
+//       }
+//     }
+//   }
+//   return stack.length === 0; // 未匹配的括號
+// }
+
 validBraces("({})[({})]");
+validBraces("(({{[[]]}}))");
+validBraces("(})");
+validBraces("())({}}{()][][");
 </script>
 </html>

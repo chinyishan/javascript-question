@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>循環語句-while and dowhile</title>
+</head>
+<body>
+  <h2>
+    <a href="https://www.codewars.com/kata/57216d4bcdd71175d6000560/train/javascript">循環語句-while and dowhile</a>
+    <p id="demo"></p>
+  </h2>
+</body>
+<script>
+  /**
+   * while 執行程式碼前先判斷條件，如果條件為 false，則 while 迴圈內的程式碼永遠不執行。
+   * 相反，do...while 總是運行一次，然後開始檢查條件。
+   */
+
+   // while
+/*   function sum1_10(){
+    let sum = 0, num = 1;
+    while (num <= 10) {
+      sum+=num
+      num++
+      console.log(sum);
+      console.log(num);
+    }
+    return sum
+  }
+  sum1_10() */
+
+  // do...while
+/*   function sum1_100(){
+    let sum = 0, num = 1;
+    do {
+      sum += num;
+      num++;
+    } while ( num <= 100 )
+    return sum;
+  }
+  sum1_100()
+ */
+
+  // 自解
+  /** 
+   * 偶數 : 除以 2 沒有餘數
+   * 奇數 : 除以 2 會有餘數
+   * result.push('*') //偶數 放右邊
+   * result.unshift('*') //奇數 放右邊
+   * document.getElementById('demo').innerHTML = result.join('')
+   */
+  // function padIt(str, n){
+  //   let i = 1
+  //   let result = str.split('')
+
+  //   while (i <= n) {
+  //     i % 2 === 0 ? result.push('*') : result.unshift('*')
+  //     i++
+  //   }
+  //   return result.join('');
+  // }
+
+  // 他人
+  /**
+   * 直接取用 n，透過 n-- (遞減)，塞 *   
+   */
+  function padIt(str, n) {
+    while (n > 0) {
+      console.log(n);
+      str = n-- % 2 ? '*' + str : str + '*';
+    }
+    return str;
+  }
+
+
+  console.log(padIt("a", 5)); // ***a**
+  // console.log(padIt("a",4)); // **a**
+
+
+</script>
+</html>
