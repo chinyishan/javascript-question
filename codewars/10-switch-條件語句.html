@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>switch-條件語句</title>
+</head>
+<body>
+  <h2>
+    <a href="https://www.codewars.com/kata/572059afc2f4612825000d8a/train/javascript">switch-條件語句</a>
+  </h2>
+</body>
+<script>
+  
+  /**
+   * 錯誤: switch (age > 18)
+   * switch 比對條件的過程相當於
+   * age === (age > 18)
+   * 12 === true 
+   * return false
+   * 所以會是錯誤的 自動 Fall back 到 default 
+   * 可以倒過來用一個結果值來比對多種條件
+  */
+
+  //自解
+  // function howManydays(month){
+  //   var days;
+  //   let mon31 = [ 1, 3, 5, 7, 8, 10, 12 ]
+  //   let mon30 = [ 4, 6, 9, 11 ]
+  //   let mon28 = [ 2 ]
+
+  //   switch (true) {
+  //     case (mon31.includes(month)):
+  //       days = 31
+  //       break;
+  //     case (mon30.includes(month)):
+  //       days = 30
+  //       break;
+  //     case (mon28.includes(month)):
+  //       days = 28
+  //       break;
+  //     default:
+  //       console.log("no month")
+  //       break;
+  //   }
+  //   return days;
+  // }
+
+  //他人
+  function howManydays(month){
+    switch ( month ){
+      case 2 : 
+        return 28
+      case 4: 
+      case 6: 
+      case 9: 
+      case 11: 
+        return 30
+      default: 
+        return 31
+    }
+  }
+
+  console.log(howManydays(1));
+  console.log(howManydays(2));
+</script>
+</html>
