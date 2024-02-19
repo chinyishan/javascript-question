@@ -5,16 +5,124 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Math-數學運算</title>
+  <style>
+    td {
+      width: 150px;
+    }
+  </style>
 </head>
 <body>
-  <h2>Basic Math (Add or Subtract)</h2>
-  <p>In this kata, you will do addition and subtraction on a given string. The return value must be also a string.Note: the input will not be empty.</p>
+  <h2>計算總量</h2>
+  <div id="TabDiv">
+    <table name="table" id="Table" border="3">
+      <thead>
+        <tr>
+          <th scope="col">門市代號</th>
+          <th scope="col">分配量</th>
+        </tr>
+      </thead>
+      <tbody class="Tbody">
+        <tr> 
+          <td>0001</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>0005</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>0014</td>
+          <td>30</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  <div id="myTabDiv">
+    <table name="table" id="myTable" border="3">
+      <thead>
+        <tr>
+          <th scope="col">門市代號</th>
+          <th scope="col">分配量</th>
+        </tr>
+      </thead>
+      <tbody id="myTbody">
+        <!-- <tr> 
+          <td>0001</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>0005</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>0014</td>
+          <td>30</td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
 </body>
 <script>
-  
-  function calculate(str) {
-    return str;
+  let list = [
+    {
+      store_no: '0001',
+      qty: 10,
+    },
+    {
+      store_no: '0005',
+      qty: 20,
+    },
+    {
+      store_no: '0014',
+      qty: 30,
+    },
+  ]
+
+  // 將 total 一次分配一個進list.qty
+  /**
+   * while (total > list.length)，均分，每個 qty 都一樣
+   * while (total > 0)，totel 全部分完，直到 total 為 0
+   * item.qty++ ，每跑一次迴圈 qty 加1
+   * total-- ，每跑一次迴圈 total 減1
+  */
+
+  // var tr = document.getElementsByTagName("tr");
+  // var td = tr.getElementsByTagName("td")[5];
+  // var td_text = td.innerHTML;  // here is "37.23961"
+  // document.getElementById("fetched").innerHTML = td_text;
+
+  function newTable() {
+    let el = document.getElementById('myTbody')
+
+    for (let i = 0; i < list.length; i++) {
+      el.innerHTML += '<tr>';
+      el.innerHTML += '<td>' + list[i].store_no + '</td>' + '<td>' + list[i].qty + '</td>';
+      el.innerHTML += '</tr>';
+    }
   }
-  calculate("1plus2plus3plus4")
+  newTable()
+
+  // 均等分配總量
+  // function calculate(total) {
+  //   let result = total
+
+  //   while (total > list.length) {
+  //     list.forEach((item) => {
+  //       if (total > 0) {
+  //         item.qty++;
+  //         total--;
+  //         console.log(total);
+  //       }
+  //       return item
+  //     })
+  //   }
+  //   console.log('預配總量 : ', result);
+  //   console.log('實際分配 : ', result - total);
+  //   console.log('剩餘 : ', total);
+  //   console.log(list);
+  //   return list;
+  // }
+  // calculate(11)
 </script>
 </html>
