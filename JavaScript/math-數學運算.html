@@ -64,20 +64,35 @@
   </div>
 </body>
 <script>
+  // 清單
   let list = [
     {
       store_no: '0001',
-      qty: 10,
+      qty: 0,
     },
     {
       store_no: '0005',
-      qty: 20,
+      qty: 0,
     },
     {
       store_no: '0014',
-      qty: 30,
+      qty: 0,
+    },
+    {
+      store_no: '0014',
+      qty: 0,
+    },
+    {
+      store_no: '0014',
+      qty: 0,
+    },
+    {
+      store_no: '0014',
+      qty: 0,
     },
   ]
+  // 基础分配量
+  let num = 3;
 
   // 將 total 一次分配一個進list.qty
   /**
@@ -87,12 +102,14 @@
    * total-- ，每跑一次迴圈 total 減1
   */
 
-  // var tr = document.getElementsByTagName("tr");
-  // var td = tr.getElementsByTagName("td")[5];
-  // var td_text = td.innerHTML;  // here is "37.23961"
-  // document.getElementById("fetched").innerHTML = td_text;
+  
+/*   var tr = document.getElementsByTagName("tr");
+  var td = tr.getElementsByTagName("td")[5];
+  var td_text = td.innerHTML;  // here is "37.23961"
+  document.getElementById("fetched").innerHTML = td_text; */
 
-  function newTable() {
+
+/*   function newTable() {
     let el = document.getElementById('myTbody')
 
     for (let i = 0; i < list.length; i++) {
@@ -101,28 +118,104 @@
       el.innerHTML += '</tr>';
     }
   }
-  newTable()
+  newTable() */
 
   // 均等分配總量
-  // function calculate(total) {
-  //   let result = total
+/*   function calculate(total) {
+    let result = total
 
-  //   while (total > list.length) {
+    while (total > list.length) {
+      list.forEach((item) => {
+        if (total > 0) {
+          item.qty++;
+          total--;
+          console.log(total);
+        }
+        return item
+      })
+    }
+    console.log('預配總量 : ', result);
+    console.log('實際分配 : ', result - total);
+    console.log('剩餘 : ', total);
+    console.log(list);
+    return list;
+  }
+  calculate(11) */
+
+  // 均等分配總量
+/*   function calculate(total) {
+    let result = total
+    let num = 3
+
+    total -= list.length * num;
+    list.forEach((item) => {
+      item.qty += num;
+    })
+    for (let i = 0; i < total; i++) {
+      list[i].qty++;
+    }
+    // if (total > list.length * num) {
+    //   console.log(total, "total");
+    // }
+    console.log('預配總量 : ', result);
+    // console.log('實際分配 : ', result - total);
+    console.log('剩餘 : ', total);
+    console.log('列表 : ', list);
+    return list;
+  }
+  calculate(13) */
+
+
+function calculate(total) {
+  let result = total;
+
+  //1. 先將【基础分配量】平均分給 list 的 qty，再將 total 扣除 list 全部【基础分配量】
+  list.forEach(item => {
+    if (total > 0) {
+      item.qty += num; //迴圈加 num 進 qty
+      total -= num; //迴圈 total 減 num
+    }
+  })
+
+  //2. 再將 total - list qty 剩餘的 total，由上到下依次分配
+  while (total > 0) { //一開始判斷跑回圈
+    list.forEach((item) => {
+      if (total > 0) { // 若是 total 不等於0，繼續分配完
+        item.qty++;
+        total--;
+      }
+    })
+  }
+  console.log('預配總量 : ', result);
+  console.log('實際分配 : ', result - total);
+  console.log('剩餘 : ', total);
+  console.log('列表 : ', list);
+  // if (total > list.length) {
+  // } 
+  // else {
+  //   console.log('error')
+  //   list.forEach(item => {
+  //     if (total > 0) {
+  //       item.qty += num;
+  //       total -= num;
+  //     }
+  //   })
+  //   while (total > 0) {
   //     list.forEach((item) => {
   //       if (total > 0) {
   //         item.qty++;
   //         total--;
-  //         console.log(total);
   //       }
-  //       return item
   //     })
   //   }
   //   console.log('預配總量 : ', result);
-  //   console.log('實際分配 : ', result - total);
   //   console.log('剩餘 : ', total);
-  //   console.log(list);
-  //   return list;
+  //   console.log('列表 : ', list);
   // }
-  // calculate(11)
+
+  return list;
+}
+
+calculate(20);
 </script>
 </html>
