@@ -23,12 +23,22 @@ code.forEach((value, index) => {
   obj[value] =  index+1
   codeData = Object.assign({}, codeData,  obj)
 })
-
 console.log(codeData);
+
 // console.log(Object.values(code));
 // console.log(Object.entries(code));
 
 function encode(str,  n){
+  let result = []
+  let newsStr = str.split('')
+  console.log(newsStr);
+
+  newsStr.forEach((i) => {
+    result.push(codeData[i])
+  })
+
+  
+  console.log(result);
   return str;
 }
 
