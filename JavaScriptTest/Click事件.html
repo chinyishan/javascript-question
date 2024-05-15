@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click事件</title>
+</head>
+<body>
+  <div id="app">
+    <a id="Btn" href="javascript:;"> 馬上去官網看一下 </a>
+    <br>
+    <br>
+    <h1 id="title">Sunny Hello</h1>
+    <button id="big">放大</button>
+    <button id="small">縮小</button>
+    <button id="normal">正常</button>
+    <br>
+    <br>
+    <h2 id="inTitle">Sunny innerText</h2>
+    <button id="inBtn">改字</button>
+  </div>
+  <script>
+    function clickLog() {
+      document.querySelector('#Btn').href = 'https://www.google.com/'
+      document.querySelector('#Btn').target = '_blank'
+    }
+    document.querySelector('#Btn').addEventListener('click', clickLog)
+
+    // ---------------------------------------------------
+
+    const title = document.querySelector("#title")
+
+    const big = document.querySelector("#big")
+    const small = document.querySelector("#small")
+    const normal = document.querySelector("#normal")
+
+    // function handelBig() {
+    //   title.style.fontSize = '60px'
+    // }
+    // function handelSmall() {
+    //   title.style.fontSize = '16px'
+    // }
+    // function handelNormal() {
+    //   title.style.fontSize = '32px'
+    // }
+    // big.addEventListener('click', handelBig)
+    // small.addEventListener('click', handelSmall)
+    // normal.addEventListener('click', handelNormal)
+
+
+    /** 匿名函式 */
+    big.addEventListener('click', function () {
+      title.style.fontSize = '60px'
+    })
+    small.addEventListener('click', function () {
+      title.style.fontSize = '16px'
+    })
+    normal.addEventListener('click', function () {
+      title.style.fontSize = '32px'
+    })
+
+    /** 事件另一寫法 */
+    // big.onclick = function () {
+    //   title.style.fontSize = '60px'
+    // }
+    // small.onclick = function () {
+    //   title.style.fontSize = '16px'
+    // }
+    // normal.onclick = function () {
+    //   title.style.fontSize = '32px'
+    // }
+
+    // ------------------------------------------------------------
+    
+    const inTitle = document.querySelector('#inTitle')
+    const inTxt = `創立<a href='https://www.google.com/' target='_blcnk'>連結連結</a>，學會如何解決問題`;
+    const inBtn = document.querySelector('#inBtn')
+    
+    inBtn.addEventListener('click', function(){
+      // inTitle.innerText = inTxt
+      inTitle.innerHTML = inTxt
+    })
+
+
+
+  </script>
+</body>
+</html>
