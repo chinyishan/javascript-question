@@ -67,9 +67,17 @@
       box-sizing:border-box;
       float:left;
       text-align:center;
+      cursor: pointer;
+    }
+    span {
+      font-family: arial;
+      font-weight: bold;
     }
     .lightgrey{
       color:#a8a8a8; /*浅灰色*/
+    }
+    .item {
+      color:#565656; /*深灰色*/
     }
     .darkgrey{
       color:#565656; /*深灰色*/
@@ -78,43 +86,62 @@
       color:#6ac13c; /*绿色*/
     }
     .greenbox{
+      color:#6ac13c;
       border:1px solid #6ac13c;
       background:#e9f8df; /*浅绿色背景*/
+    }
+    .select-date {
+      font-size: 24px;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-top: 30px;
+      color:#2c2c2c;
+    }
+    .flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   </style>
 </head>
 <body>
-  <div class="calendar">
-    <div class="title">
-      <h1 class="green" id="calendar-title">Month</h1>
-      <h2 class="green small" id="calendar-year">Year</h2>
-      <a class="arrow lightgrey" href="" id="prev">&lt;</a>
-      <a class="arrow lightgrey" href="" id="next">&gt;</a>
-    </div>
-    <div class="body">
-      <div class="lightgrey body-list">
-        <ul>
-          <li>MON</li>
-          <li>TUE</li>
-          <li>WED</li>
-          <li>THU</li>
-          <li>FRI</li>
-          <li>SAT</li>
-          <li>SUN</li>
-        </ul>
+  <div class="container">
+    <div class="calendar">
+      <div class="title">
+        <div class="green flex">
+          <h1 id="calendar-title">Month</h1><span>月</span>
+        </div>
+        <h2 class="green small" id="calendar-year">Year</h2>
+        <a class="arrow lightgrey" href="" id="prev">&lt;</a>
+        <a class="arrow lightgrey" href="" id="next">&gt;</a>
       </div>
-      <div class="darkgrey body-list">
-        <ul id="days">
-        </ul>
+      <div class="body">
+        <div class="lightgrey body-list">
+          <ul>
+            <li>MON</li>
+            <li>TUE</li>
+            <li>WED</li>
+            <li>THU</li>
+            <li>FRI</li>
+            <li>SAT</li>
+            <li>SUN</li>
+          </ul>
+        </div>
+        <div class="darkgrey body-list">
+          <ul id="days">
+          </ul>
+        </div>
       </div>
     </div>
+    <h4 class="select-date">data</h4>
   </div>
 </body>
 <script>
   /*閏年和非閏年的二月天数是不一样，需分别創建陣列  */
   let monthOlympic = [31,29,31,30,31,30,31,31,30,31,30,31];
   let monthNormal = [31,28,31,30,31,30,31,31,30,31,30,31];
-  let monthName = ["January","Febrary","March","April","May","June","July","Auguest","September","October","November","December"];
+  // let monthName = ["January","Febrary","March","April","May","June","July","Auguest","September","October","November","December"];
+  let monthName = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 
   /**元素建立變量*/
   let holder = document.getElementById("days");
@@ -122,6 +149,7 @@
   let next = document.getElementById("next");
   let ctitle = document.getElementById("calendar-title");
   let cyear = document.getElementById("calendar-year");
+  let selectData = document.getElementById("select-data"); //所選的日期
 
   /*取得年月日*/
   let pickerDate = new Date();
@@ -152,27 +180,50 @@
     let firstDay = dayStart(pickerMonth, pickerYear); //獲取該月第一天是星期幾
     let myclass;
     for (let i = 1; i < firstDay; i++) { 
-      str += "<li></li>"; //为起始日之前的日期创建空白节点
+      str += "<li></li>"; //起始日之前的日期空白節點
     }
     for (let i = 1; i <= totalDay; i++) {
-      if ((i<pickerDay && pickerYear == pickerDate.getFullYear() && pickerMonth == pickerDate.getMonth()) || pickerYear < pickerDate.getFullYear() || ( pickerYear==pickerDate.getFullYear() && pickerMonth<pickerDate.getMonth())){ 
-        myclass = " class='lightgrey'"; //當日期在今天之前，以浅灰色字體
-      } else if (i==pickerDay && pickerYear==pickerDate.getFullYear() && pickerMonth==pickerDate.getMonth()){
-        myclass = " class='green greenbox'"; //當天日期绿色背景
+
+      // if ((i < pickerDay && pickerYear == pickerDate.getFullYear() && pickerMonth == pickerDate.getMonth()) || pickerYear < pickerDate.getFullYear() || ( pickerYear==pickerDate.getFullYear() && pickerMonth<pickerDate.getMonth())){ 
+      //   myclass = " class='item lightgrey'"; //當日期在今天之前，以浅灰色字體
+      // } else if (i == pickerDay && pickerYear == pickerDate.getFullYear() && pickerMonth == pickerDate.getMonth()){
+      //   myclass = " class='item greenbox'"; //當天日期绿色背景
+      // } else {
+      //   myclass = " class='item darkgrey'"; //當日期在今天之后，以深灰字體
+      // }
+
+      if (i == pickerDay && pickerYear == pickerDate.getFullYear() && pickerMonth == pickerDate.getMonth()){
+        myclass = " class='item greenbox'"; //當天日期绿色背景
       } else {
-        myclass = " class='darkgrey'"; //當日期在今天之后，以深灰字體
+        myclass = " class='item'"; //當日期在今天之后，以深灰字體
       }
       str += "<li"+myclass+">"+i+"</li>"; //創建日期節點
-      totalDay[i].index = i;
-      totalDay[i].onclick = function() {
-        
+    }
+    holder.innerHTML = str; //設置日期顯示
+    ctitle.innerHTML = monthName[pickerMonth]; //設置英文月份顯示
+    cyear.innerHTML = pickerYear; //設置年份顯示
+
+    itemClick()
+  }
+  refreshDate(); //執行函數
+
+  /**點擊日期*/
+  function itemClick() {
+    let itemli = document.querySelectorAll('.item')
+    for (var i = 0; i < itemli.length; i++) {
+      
+
+      itemli[i].onclick = function() {
+        itemli.forEach((d) =>{
+          d.classList.remove('greenbox')
+          console.log(d);
+        })
+        this.classList.add('greenbox')
+        let day = this.textContent;
+        selectData.innerHTML = `${pickerYear}-${monthName[pickerMonth]}-${day}`
       }
     }
-    holder.innerHTML = str; //设置日期显示
-    ctitle.innerHTML = monthName[pickerMonth]; //设置英文月份显示
-    cyear.innerHTML = pickerYear; //设置年份显示
-  }
-  refreshDate(); //执行该函数
+  } 
 
   /**加入交互動作*/
   prev.onclick = function(e){
