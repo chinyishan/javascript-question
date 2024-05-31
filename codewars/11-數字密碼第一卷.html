@@ -1,48 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>數字密碼第一卷</title>
+  </head>
+  <body></body>
 
-<script>
+  <script>
+    const code = [...Array(26)].map((_, i) => String.fromCharCode(i + 97));
 
-const code = [...Array(26)].map((_, i) =>
-  String.fromCharCode(i + 97)
-)
+    let codeData = {};
 
-let codeData = {}
+    code.forEach((value, index) => {
+      let obj = {};
+      obj[value] = index + 1;
+      codeData = Object.assign({}, codeData, obj);
+    });
+    console.log(codeData);
 
-code.forEach((value, index) => {
-  let obj = {}
-  obj[value] =  index+1
-  codeData = Object.assign({}, codeData,  obj)
-})
-console.log(codeData);
+    // console.log(Object.values(code));
+    // console.log(Object.entries(code));
 
-// console.log(Object.values(code));
-// console.log(Object.entries(code));
+    function encode(str, n) {
+      let result = [];
+      let newsStr = str.split("");
+      console.log(newsStr);
 
-function encode(str,  n){
-  let result = []
-  let newsStr = str.split('')
-  console.log(newsStr);
+      newsStr.forEach((i) => {
+        result.push(codeData[i]);
+      });
 
-  newsStr.forEach((i) => {
-    result.push(codeData[i])
-  })
+      console.log(result);
+      return str;
+    }
 
-  
-  console.log(result);
-  return str;
-}
-
-encode('scout', 1939)
-
-</script>
+    encode("scout", 1939);
+  </script>
 </html>

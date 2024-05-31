@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set求交集-差集-並集</title>
+  </head>
+  <body>
+    <a href="https://ithelp.ithome.com.tw/articles/10276336"
+      >初學者跪著學JavaScript Day17: 物件：new Set()</a
+    >
+  </body>
+  <script>
+    /**如果希望「陣列（Array）」的元素不會重複，可以使用 Set
+     * has() 在 Set 物件中的存在與否回傳一個布林值。
+     */
+
+    let setA = new Set([1, 2, 3, 4, 5]);
+    let setB = new Set([4, 5, 6, 7, 8]);
+    let setC = new Set([6, 7, 8, 9, 10]);
+
+    /**求並集，Set 拿掉相同值 */
+    let unionSet = new Set([...setA, ...setB]);
+    // console.log(unionSet); //{1, 2, 3, 4, 5, 6, 7, 8}
+
+    /**求並集，union()，合併Set過濾相同的值 */
+    let unionSetTwo = setA.union(setB);
+    // console.log(unionSetTwo); // {1, 2, 3, 4, 5, 6, 7, 8}
+
+    /* ===================================================================================== */
+
+    /**求交集 */
+    let intersectionSet = new Set(
+      [...setA].filter((x) => {
+        return setB.has(x);
+      })
+    );
+    // console.log(intersectionSet); // {4, 5}
+
+    /**求交集，intersection() */
+    let intersectionSetTwo = setA.intersection(setB);
+    // console.log(intersectionSetTwo); // {4, 5}
+
+    /* ===================================================================================== */
+
+    /**求差易，以A為主，過濾與A有相同的值 */
+    let differenceSet = new Set([...setA].filter((x) => !setB.has(x)));
+    // console.log(differenceSet); // {1, 2, 3}
+
+    /**求差易，difference() */
+    let differenceSetTwo = setA.difference(setB);
+    // console.log(differenceSetTwo); // {1, 2, 3}
+
+    /* ===================================================================================== */
+
+    /**求差集，symmetricDifference()，比對 A、B 過濾兩Set相同的值 */
+    let symmetricDifferenceSet = setA.symmetricDifference(setB);
+    // console.log(symmetricDifferenceSet); // {1, 2, 3, 6, 7, 8}
+
+    /* ===================================================================================== */
+
+    /**求是否不交集，isDisjointFrom()，沒有共有的元素回傳true，否則false */
+    let isDisjointFromSet1 = setA.isDisjointFrom(setB);
+    let isDisjointFromSet2 = setA.isDisjointFrom(setC);
+    // console.log(isDisjointFromSet1); // false
+    // console.log(isDisjointFromSet2); // true
+
+    /* ===================================================================================== */
+
+    /**求是值否在選定交集中，isSubsetOf()，該Set的所有元素是否都在給定Set中，true 和 false */
+    let isSubsetOfSet = setA.isSubsetOf(setB);
+    // console.log(isSubsetOfSet); //false
+
+    /* ===================================================================================== */
+
+    /**求是值否在選定交集中，isSupersetOf()，該Set的所有元素是否都在給定Set中，true 和 false */
+    let isSupersetOfSet = setB.isSupersetOf(setA);
+    // console.log(isSupersetOfSet); //false
+  </script>
+</html>
