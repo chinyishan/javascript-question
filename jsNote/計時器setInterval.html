@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>計時器 setInterval()</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <h2>計時器 setInterval()、移除計時器 clearInterval()</h2>
+    <h3 id="time"></h3>
+    <hr />
+    <h2 id="timeTxt">0</h2>
+    <div class="btnGroup">
+      <a id="play" class="btn">播放</a>
+      <a id="stop" class="btn">暫停</a>
+      <a id="reset" class="btn">重新</a>
+    </div>
+    <!-- <a id="btn1" class="btn" href="javascript:;">開始滑動</a> -->
+  </body>
+  <script>
+    const time = document.querySelector("#time");
+    let idx = 0;
+    time.innerText = idx;
+
+    // setInterval()、clearInterval() =============================================
+    // const timeGo = setInterval(() => {
+    //   idx++;
+    //   time.innerText = idx;
+    //   if (idx >= 10) {
+    //     clearInterval(timeGo);
+    //   }
+    // }, 1000);
+
+    // 播放 暫停 重新 ==============================================================
+    const timeTxt = document.getElementById("timeTxt");
+    const Play = document.getElementById("play");
+    const Stop = document.getElementById("stop");
+    const Reset = document.getElementById("reset");
+
+    let num = 0;
+    let playTime = null;
+
+    timeTxt.innerText = num;
+
+    Play.addEventListener("click", playFn);
+    Stop.addEventListener("click", stopFn);
+    Reset.addEventListener("click", resetFn);
+
+    function resetActive() {
+      Play.classList.remove("active");
+      Stop.classList.remove("active");
+      Reset.classList.remove("active");
+    }
+
+    function playFn() {
+      playTime = setInterval(() => {
+        num++;
+        timeTxt.innerText = num;
+      }, 1000);
+      resetActive();
+      this.classList.add("active");
+    }
+
+    function stopFn() {
+      Play.addEventListener("click", playFn);
+      clearInterval(playTime);
+      resetActive();
+      this.classList.add("active");
+    }
+
+    function resetFn() {
+      // 移除監聽避免勿按
+      Play.removeEventListener("click", playFn);
+      Stop.removeEventListener("click", stopFn);
+      num = 0;
+      timeTxt.innerText = num;
+      resetActive();
+      this.classList.add("active");
+      clearInterval(playTime);
+
+      // 之後再加回監聽
+      setTimeout(() => {
+        resetActive();
+        Play.addEventListener("click", playFn);
+        Stop.addEventListener("click", stopFn);
+      }, 3000);
+    }
+  </script>
+</html>

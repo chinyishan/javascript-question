@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this 是什麼? 匿名函式</title>
+  </head>
+  <style>
+    .btn {
+      padding: 10px 20px;
+      background-color: rgb(39, 41, 97);
+      color: rgb(255, 255, 255);
+      border-radius: 50px;
+    }
+  </style>
+  <body>
+    <h2>this 是什麼?</h2>
+    <a id="btn1" class="btn" href="javascript:;">觸發 this</a>
+    <a id="btn2" class="btn" href="javascript:;">觸發 this</a>
+    <p>沒透過 function 呼叫，this 指向 window</p>
+    <p>有透過 function 呼叫，此 this 指向 btn 按鈕本身</p>
+    <script>
+      // 沒透過 function 呼叫，this 指向 window
+      console.log(this); // -> window
+
+      // 有透過 function 呼叫，此 this 指向 btn 按鈕本身
+      document.querySelector("#btn1").addEventListener("click", function (e) {
+        this.href = "https://www.google.com/";
+        this.target = "_blank";
+
+        console.log(this); // -> document.querySelector("#btn")
+        console.log(e.target); // -> document.querySelector("#btn")
+      });
+
+      // 匿名函式沒有 this 物件，他會指向外層
+      document.querySelector("#btn2").addEventListener("click", (e) => {
+        console.log(this); // -> window
+        console.log(e.target); // -> document.querySelector("#btn")
+      });
+
+      // 函式 return 、將變數命名函式，a=1 可先給預設值避免NaN
+      const addValue = (a = 1, b = 1) => {
+        return a + b;
+      };
+
+      const addUserName = (name) => {
+        return `我的名字是 ${name}`;
+      };
+
+      const val = addValue(5, 2); //將變數命名函式
+
+      console.log(val);
+      console.log(addUserName("sunny"));
+    </script>
+  </body>
+</html>

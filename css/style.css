@@ -1,0 +1,19 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.btn {
+  padding: 10px 20px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(39, 41, 97);
+  border-radius: 50px;
+}
+.btn.active {
+  color: #fff;
+  background-color: crimson;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+}

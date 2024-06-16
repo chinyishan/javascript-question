@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>滑鼠事件</title>
+  </head>
+  <style>
+    body {
+      position: relative;
+      height: 100vh;
+      background-image: url("/assets/sky.jpg");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .btn {
+      padding: 10px 20px;
+      background-color: rgb(39, 41, 97);
+      color: rgb(255, 255, 255);
+      border-radius: 50px;
+    }
+    .fly {
+      width: 100px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    img {
+      display: block;
+      width: 100%;
+      margin: 0 auto;
+    }
+  </style>
+  <body>
+    <h2>滑鼠事件</h2>
+    <a id="btn1" class="btn" href="javascript:;">開始滑動</a>
+    <p id="title1">mouseover & mouseout 事件?</p>
+    <div id="fly" class="fly">
+      <img src="/assets/fly.png" alt="fly" />
+    </div>
+    <script>
+      const btn1 = document.querySelector("#btn1");
+      const title1 = document.querySelector("#title1");
+      const fly = document.querySelector("#fly");
+      let isDown = false;
+
+      // mouseover 滑鼠滑進
+      btn1.addEventListener("mouseover", function (e) {
+        console.log(e); // function event return，有座標 layout....
+        title1.innerText = "滑進按鈕";
+      });
+
+      // mouseout 滑鼠滑出
+      btn1.addEventListener("mouseout", function (e) {
+        console.log(e);
+        title1.innerText = "滑出按鈕";
+      });
+
+      // 飛機事件 =================================================
+
+      // mousedown 滑鼠點擊
+      window.addEventListener("mousedown", function (e) {
+        isDown = true;
+        fly.style.left = `${e.pageX}px`;
+        fly.style.top = `${e.pageY}px`;
+      });
+
+      // mouseover 滑鼠移動
+      window.addEventListener("mouseover", function (e) {
+        const ww = window.innerWidth / 2;
+        
+        if (isDown) {
+          fly.style.left = `${e.pageX}px`;
+          fly.style.top = `${e.pageY}px`;
+          if (e.pageX < ww) {
+            fly.style.transform = "translate(-50%, -50%) scaleX(-1)";
+          } else {
+            fly.style.transform = "translate(-50%, -50%) scaleX(1)";
+          }
+        }
+      });
+
+      // mouseup 滑鼠放開
+      window.addEventListener("mouseup", function (e) {
+        isDown = false;
+        fly.style.left = `${e.pageX}px`;
+        fly.style.top = `${e.pageY}px`;
+      });
+    </script>
+  </body>
+</html>
