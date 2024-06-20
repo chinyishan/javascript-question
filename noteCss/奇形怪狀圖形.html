@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>奇形怪狀圖形</title>
+  </head>
+  <style>
+    /* background: radial-gradient(
+          形狀 範圍  at 中心位置,
+          顏色 色彩位置, 
+          顏色 色彩位置, 
+          顏色 色彩位置,
+        ...); */
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .container {
+      width: 375px;
+      max-width: 90%;
+      margin: auto;
+      background-color: beige;
+    }
+    .group {
+      position: relative;
+      width: 200px;
+      height: 100px;
+      margin: 20px auto;
+    }
+
+    /* outside-circle ==================================================== */
+    .outside-circle {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      background: #e91e63;
+      border-radius: 10px 10px 0 0;
+      filter: drop-shadow(0px 0px 5px rgb(61, 61, 61));
+    }
+    .outside-circle::before {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      left: -40px;
+      bottom: 0;
+      background: #000;
+      background: radial-gradient(
+        circle at 0 0,
+        transparent 40px,
+        #e91e63 41px
+      );
+    }
+    .outside-circle::after {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      right: -40px;
+      bottom: 0;
+      background: #000;
+      background: radial-gradient(
+        circle at 100% 0,
+        transparent 40px,
+        #e91e63 41px
+      );
+    }
+
+    /* mask-inset-circle ==================================================== */
+    .mask-inset-circle {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #2179f5, #e91e63);
+      mask: radial-gradient(
+          circle at 100% 100%,
+          transparent 0,
+          transparent 12px,
+          #2179f5 13px
+        ),
+        radial-gradient(
+          circle at 0 0,
+          transparent 0,
+          transparent 12px,
+          #2179f5 13px
+        ),
+        radial-gradient(
+          circle at 100% 0,
+          transparent 0,
+          transparent 12px,
+          #2179f5 13px
+        ),
+        radial-gradient(
+          circle at 0 100%,
+          transparent 0,
+          transparent 12px,
+          #2179f5 13px
+        );
+      mask-repeat: no-repeat;
+      mask-position: right bottom, left top, right top, left bottom;
+      mask-size: 70% 70%;
+    }
+
+    /* mask-top-circle ==================================================== */
+    .mask-top-circle {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #ff4df0, #ff975f);
+      mask: radial-gradient(
+        circle at 50% 0%,
+        transparent 0,
+        transparent 30px,
+        #ff975f 31px
+      );
+      mask-repeat: no-repeat;
+      mask-position: top center;
+      mask-size: 100% 100%;
+      border-radius: 10px;
+      /* -webkit-mask-composite: xor; */
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="group">
+        <div class="outside-circle">outside-circle</div>
+      </div>
+      <div class="group">
+        <div class="mask-inset-circle">inset-circle</div>
+      </div>
+      <div class="group">
+        <div class="mask-top-circle">top-circle</div>
+      </div>
+    </div>
+  </body>
+</html>

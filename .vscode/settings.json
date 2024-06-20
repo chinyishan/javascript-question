@@ -20,5 +20,6 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "prettier.disableLanguages": []
+  "prettier.disableLanguages": [],
+  "liveServer.settings.port": 5501
 }

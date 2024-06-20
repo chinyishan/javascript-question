@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>大樹會員切版</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .container {
+      width: 375px;
+      max-width: 90%;
+      margin: auto;
+    }
+    /* GT */
+    .gt-group {
+      position: relative;
+      width: 375px;
+      height: 812px;
+      padding: 8px;
+      /* border: 1px solid #aaa; */
+    }
+    .gt-from {
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      background: #f1f9f0;
+      border-radius: 38px 38px 0px 38px;
+      filter: drop-shadow(0px 0px 10px #346d3a40);
+    }
+    .gt-from::before {
+      content: "";
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      right: 0%;
+      top: 100%;
+      background: #000;
+      background: radial-gradient(
+        circle at 0% 100%,
+        transparent 38px,
+        #f1f9f0 39px
+      );
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="gt-group">
+        <div class="gt-from">
+          <label for=""></label>
+          <input type="text" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
