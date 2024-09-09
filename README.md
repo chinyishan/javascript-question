@@ -1,9 +1,11 @@
-# JavaScript 題目測試
+# JS 的一些問題和測試
 
-## codewars
+## JavaScript 題目網址
+
+### codewars
 
 https://www.codewars.com/dashboard
 
-## leetcode
+### leetcode
 
 https://leetcode.com/

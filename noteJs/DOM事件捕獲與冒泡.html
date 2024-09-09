@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM 事件傳遞機制：捕獲與冒泡、事件代理</title>
+
+    <style>
+      .outer {
+        width: 200px;
+        height: 200px;
+        background-color: orange;
+      }
+
+      .inner {
+        width: 100px;
+        height: 100px;
+        background-color: lightseagreen;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- https://hackmd.io/@Heidi-Liu/note-fe201-dom -->
+    <div class="outer">
+      <div class="inner">
+        <button class="btn">button</button>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- 迴圈與觸發時間非同步 -->
+    <div class="outer">
+      <button class="btn2" data-value="1">1</button>
+      <button class="btn2" data-value="2">2</button>
+    </div>
+
+    <script>
+      /**
+       * 點擊 outer 會觸發 outer
+       * 點擊 inner 會觸發 inner -> outer
+       * 點擊 button 會觸發 button -> inner -> outer
+       */
+      addEvent(".outer");
+      addEvent(".inner");
+      // addEvent(".btn");
+
+      // 監聽按鈕點擊事件
+      function addEvent(className) {
+        document
+          .querySelector(className)
+          .addEventListener("click", function () {
+            console.log(className);
+          });
+      }
+
+      document.querySelector(".btn").addEventListener("click", function (e) {
+        e.stopPropagation(); // 停止事件冒泡
+        console.log("btn 冒泡");
+      });
+
+      /**迴圈與觸發時間非同步
+       * click 事件和迴圈是不一樣時間軸。
+       * click 只有在點擊瞬間才會執行，但迴圈會先跑完。
+       * 因此順序是：click → 跑完迴圈 → 觸發事件結果 */
+      const btns = document.querySelectorAll(".btn2");
+
+      // for (i = 0; i < btns.length; i += 1) {
+      //   btns[i].addEventListener("click", () => {
+      //     alert(i);
+      //   });
+      // }
+
+      /* 修改 */
+      for (i = 0; i < btns.length; i += 1) {
+        btns[i].addEventListener("click", (e) => {
+          alert(e.target.getAttribute("data-value"));
+        });
+      }
+    </script>
+  </body>
+</html>
