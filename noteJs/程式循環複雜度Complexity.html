@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>程式循環複雜度Complexity</h1>
+    <a
+      href="https://zh.wikipedia.org/zh-tw/%E5%BE%AA%E7%92%B0%E8%A4%87%E9%9B%9C%E5%BA%A6"
+      >循環複雜度（Cyclomatic complexity）</a
+    >
+    <a href="https://www.cythilya.tw/2021/03/27/testable-javascript-complexity/"
+      >Ch2 複雜度（Complexity）| 可測試的 JavaScript (Testable JavaScript)
+      閱讀筆記</a
+    >
+    <h2>
+      一個函式的循環複雜度必須 <= 10，因為 10 表示 bad fix 約 5%， >16
+      則可靠度很低。
+    </h2>
+  </body>
+  <script>
+    const doSomething = (a) => {
+      if (a === "x") {
+        doX();
+      } else if (a === "y") {
+        doY();
+      } else {
+        doZ();
+      }
+    };
+
+    // 將多個if else 轉換為此
+    const doAnotherThing = (a) => {
+      const lookup = {
+        x: doX,
+        y: doY,
+      };
+      const def = doZ;
+
+      lookup[a] ? lookup[a]() : def();
+    };
+
+    const doX = () => {
+      console.log("doX");
+    };
+
+    const doY = () => {
+      console.log("doY");
+    };
+
+    const doZ = () => {
+      console.log("doZ");
+    };
+
+    doSomething("x");
+    doAnotherThing("y");
+  </script>
+</html>
