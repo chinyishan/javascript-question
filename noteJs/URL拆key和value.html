@@ -10,13 +10,18 @@
     <h1>URL拆key和value</h1>
   </body>
   <script>
+    /* obj = {
+      type: xxx,
+      token: xxx,
+      name: xxx,
+    }; */
     let url =
       "https://testTest.com.tw?type=mapping-state&session_token=eyJpdiI6IkNCYkgwL0ZvM1hSY0ZLdzl1SDRSS0E9PSIsInZhbHVlIjoiMVVRTm&user=sunny";
 
     let params, type, token;
     let obj = {};
 
-    params = url.split("?")[1].split("&");
+    // params = url.split("?")[1].split("&");
     // type = url.split("&")[0].split("=")[1];
     // token = url.split("&")[1].split("=")[1];
 
@@ -25,18 +30,18 @@
      * 參數被分割為 key 和 value，並添加到 acc (累加器) 中，形成最終的 obj
      * 可以直接從 obj 中獲取 type、session_token 和 user 等參數
      */
-    obj = params.reduce((acc, i) => {
-      const [key, value] = i.split("=");
-      acc[key] = value;
-      return acc;
-    }, {});
+    // obj = params.reduce((acc, i) => {
+    //   const [key, value] = i.split("=");
+    //   acc[key] = value;
+    //   return acc;
+    // }, {});
+
+    // ---------------------------------------------------------------
+
+    /**使用 URLSearchParams 拆參數 */
+    params = new URLSearchParams(url.split("?")[1]);
+    params.forEach((value, key) => (obj[key] = value));
 
     console.log("obj", obj);
-
-    /* obj = {
-      type: xxx,
-      token: xxx,
-      name: xxx,
-    }; */
   </script>
 </html>
