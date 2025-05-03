@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Todo List</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 2rem;
+      }
+      input[type="text"] {
+        width: 200px;
+        padding: 0.5rem;
+      }
+      button {
+        margin-left: 0.5rem;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin: 0.5rem 0;
+      }
+      .todo-text[contenteditable] {
+        padding: 0.2rem;
+        border: 1px dashed gray;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+    <input type="text" id="todo-input" placeholder="輸入項目." />
+    <button id="add-btn">新增</button>
+    <ul id="todo-list"></ul>
+
+    <script>
+      const input = document.getElementById("todo-input");
+      const addBtn = document.getElementById("add-btn");
+      const list = document.getElementById("todo-list");
+
+      let todos = JSON.parse(localStorage.getItem("todos") || "[]");
+
+      function saveTodos() {
+        localStorage.setItem("todos", JSON.stringify(todos));
+      }
+
+      function renderTodos() {
+        list.innerHTML = "";
+        todos.forEach((todo, index) => {
+          const li = document.createElement("li");
+
+          const span = document.createElement("span");
+          span.textContent = todo;
+          span.className = "todo-text";
+          span.contentEditable = true;
+
+          span.addEventListener("blur", () => {
+            todos[index] = span.textContent.trim();
+            saveTodos();
+          });
+
+          span.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              span.blur();
+            }
+          });
+
+          const delBtn = document.createElement("button");
+          delBtn.textContent = "刪除";
+          delBtn.onclick = () => {
+            todos.splice(index, 1);
+            saveTodos();
+            renderTodos();
+          };
+
+          li.appendChild(span);
+          li.appendChild(delBtn);
+          list.appendChild(li);
+        });
+      }
+
+      addBtn.onclick = () => {
+        const value = input.value.trim();
+        if (value) {
+          todos.push(value);
+          saveTodos();
+          input.value = "";
+          renderTodos();
+        }
+      };
+
+      renderTodos();
+    </script>
+  </body>
+</html>
