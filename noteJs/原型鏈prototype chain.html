@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      原型 (prototype)、原型鏈 (prototype chain) 、原型繼承 (prototypal
+      inheritance) 是什麼?
+    </title>
+  </head>
+  <body>
+    <a
+      href="https://www.explainthis.io/zh-hant/swe/most-common-js-prototype-questions"
+    >
+      原型 (prototype)、原型鏈 (prototype chain) 、原型繼承 (prototypal
+      inheritance) 是什麼?</a
+    >
+    <script>
+      /**
+       * 原型（prototype）
+       */
+      function Person(name) {
+        this.name = name;
+      }
+
+      // 在 Person 的 prototype 屬性定義 sayHi()
+      Person.prototype.sayHi = function () {
+        console.log("Hi, I am " + this.name);
+      };
+
+      const aa = new Person("Alice");
+      const bb = new Person("Bella");
+      const cc = { x: 1 };
+
+      // aa.sayHi(); // Hi, I am Alice
+      // bb.sayHi(); // Hi, I am Bella
+
+      // 兩個函式嚴格相等(指向同樣的記憶體位置)
+      console.log(aa.sayHi() === bb.sayHi()); // true
+      console.log(aa);
+
+      // -----------------------------------------------
+
+      /**
+       * 原型繼承（prototypal inheritance）
+       * 以一個現有物件作為原型，創建一個新對象
+       * Object.create() 讓 dog 的原型指向 animal，所以 dog 繼承了 eat
+       */
+      const animal = {
+        eat() {
+          console.log("eating...");
+        },
+      };
+
+      const dog = Object.create(animal); // dog 繼承 animal
+      console.log(dog);
+      dog.eat(); // 'eating...'
+
+      const person = {
+        isHuman: false,
+        printName: function () {
+          console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+        },
+      };
+
+      const me = Object.create(person);
+
+      me.name = "Sunny"; // “name” 是 “me” 上設定的屬性，但不是 “person” 上設定的屬性
+      me.isHuman = true; // 繼承的屬性可以被覆寫
+
+      me.printName();
+      // Expected output: "My name is Sunny. Am I human? true"
+
+      const obj = {};
+      const proto = Object.getPrototypeOf(obj); // 取得原型
+      Object.setPrototypeOf(obj, newProto); // 設定原型
+    </script>
+  </body>
+</html>

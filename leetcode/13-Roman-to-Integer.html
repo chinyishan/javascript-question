@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>13 — Roman to Integer 羅馬到整數</title>
+    <a href="https://leetcode.com/problems/roman-to-integer/"
+      >輸入一個「羅馬數字」字串，請你把它轉換成對應的整數。
+    </a>
+  </head>
+  <body>
+    <script>
+      /**
+				* Symbol       Value
+					I             1
+					V             5
+					X             10
+					L             50
+					C             100
+					D             500
+					M             1000
+			*/
+
+      /**
+       * @param {string} str
+       * @return {number}
+       */
+      var romanToInt = function (str) {
+        const map = new Map();
+        let num = 0;
+        map
+          .set("I", 1)
+          .set("V", 5)
+          .set("X", 10)
+          .set("L", 50)
+          .set("C", 100)
+          .set("D", 500)
+          .set("M", 1000);
+
+        for (let i = 0; i < str.length; i++) {
+          const curr = map.get(str[i]);
+          const next = map.get(str[i + 1]);
+
+          // 如果有下一個 && "當前" 小於 "下一個"，要減掉它
+          if (next && curr < next) {
+            num += next - curr;
+            i++; // 因為有判斷下一位， 跳過下一位，因為已處理過
+          } else {
+            num += curr;
+          }
+        }
+        return num;
+      };
+
+      // romanToInt("LVIII");
+      // console.log(romanToInt("LVIII")); // 58
+      console.log(romanToInt("MCMXCIV")); // 1994，M = 1000, CM = 900, XC = 90 and IV = 4
+
+      // 100 < 1000，1000 - 100 = 900
+      // 10 < 100，100 - 10 = 90
+      // 1 < 5，5 - 1 = 4
+    </script>
+  </body>
+</html>

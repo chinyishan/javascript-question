@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>valid-parentheses</title>
+    <a href="https://leetcode.com/problems/valid-parentheses/"
+      >Stack 基礎、邏輯推理</a
+    >
+  </head>
+  <body>
+    <script>
+      /**
+       * @param {string} str
+       * @return {boolean}
+       */
+      var isValid = function (str) {
+        const arr = [];
+        const objMap = {
+          ")": "(",
+          "]": "[",
+          "}": "{",
+        };
+
+        for (let item of str) {
+          if (item === "(" || item === "[" || item === "{") {
+            arr.push(item);
+          } else {
+            // 如果 arr.pop() 取出的左括號不是這個右括號的配對，說明配對錯誤 立刻 return false。
+            if (arr.pop() !== objMap[item]) {
+              return false;
+            }
+          }
+          console.log(arr, "arr");
+        }
+        return arr.length === 0;
+      };
+      isValid("({[]})");
+    </script>
+  </body>
+</html>

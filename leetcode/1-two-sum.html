@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>two-sum</title>
+    <a href="https://leetcode.com/problems/two-sum/">two-sum Object Map 操作</a>
+  </head>
+  <body>
+    <script>
+      /**
+       * 1. 使用 for 每一步都將目前的數字與其索引存入 Map
+       * 2. 每次先查 target - num 是否已存在於 Map 中
+       * 3. 一旦找到，就立即回傳對應的索引組
+       */
+
+      /**
+       * @param {number[]} nums
+       * @param {number} target
+       * @return {number[]}
+       */
+      var twoSum = function (nums, target) {
+        const map = new Map();
+
+        for (let i = 0; i < nums.length; i++) {
+          const newVal = target - nums[i];
+
+          if (map.has(newVal)) {
+            return [map.get(newVal), i];
+          }
+
+          // 需要邊紀錄 數字 和 索引
+          map.set(nums[i], i); // 迴圈寫入 value -> 索引值，Map(2) {11 => 0, 7 => 1}
+        }
+
+        return []; // 沒找到
+      };
+
+      console.log(twoSum([11, 7, 2, 15], 9));
+
+      // 效能不好
+      // var twoSum = function (nums, target) {
+      //   let res = [];
+
+      //   nums.forEach((val, idx) => {
+      //     let pairIdx = nums.indexOf(target - val);
+
+      //     if (pairIdx !== -1 && pairIdx !== idx) {
+      //       res = [idx, pairIdx];
+      //     }
+      //   });
+
+      //   return res;
+      // };
+    </script>
+  </body>
+</html>

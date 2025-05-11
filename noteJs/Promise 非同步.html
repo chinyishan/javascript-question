@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise 非同步操作</title>
+  </head>
+  <body>
+    <a href="https://www.explainthis.io/zh-hant/swe/what-is-promise"
+      >Promise 非同步操作</a
+    >
+    <script>
+      /**
+       * 模擬成功與失敗的 API
+       * 請你寫一個 fetchData(success) 函式，如果 success 是 true，1 秒後 resolve 成功；
+       * 如果是 false，則 reject 一個錯誤訊息。
+       */
+      function fetchData(success) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (success) {
+              resolve("資料載入成功");
+            } else {
+              reject("載入失敗");
+            }
+          }, 1000);
+        });
+      }
+
+      // 使用 .then() 和 .catch()
+      fetchData(true)
+        .then((data) => {
+          console.log(data, "成功了!");
+        })
+        .catch((error) => {
+          console.log(error, "錯誤了!");
+        });
+
+      // -----------------------------------------
+
+      /**
+       * 題目一：封裝一個 delay 函式
+       * 請你寫一個 delay(ms) 函式，回傳一個 Promise，會在指定的毫秒數後 resolve。
+       */
+      const delay = (ms) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(resolve, ms);
+        });
+      };
+
+      delay(1000).then(() => {
+        console.log("1 秒後執行");
+      });
+
+      // -----------------------------------------
+
+      /**
+       * 模擬資料請求流程
+       * 請你建立一個函式 getUserData()，模擬從伺服器取得使用者資料，2 秒後返回 { name: 'Alice' }。
+       */
+
+      function getUserData() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve({ name: "Alice" });
+          }, 2000);
+        });
+      }
+
+      getUserData().then((data) => {
+        console.log(data.name); // Alice
+      });
+
+      /**
+       * Promise.allSettled([...])
+       * 無論成功或失敗，都會回傳每個 Promise 的結果狀態（fulfilled or rejected）。
+       */
+
+      /**
+       * Promise.race([...])
+       * 誰先完成（成功或失敗），就回傳那個結果。
+       */
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject("timeout"), 100)
+      );
+
+      Promise.race([fetchData(true), timeout])
+        .then((data) => console.log("成功 =>", data))
+        .catch((err) => console.error("錯誤 =>", err));
+
+      /**
+       * Promise.any([...])
+       * 只要有一個成功就成功，全部失敗才失敗（ES2021 新增）。
+       */
+      Promise.any([
+        Promise.reject("A 失敗"),
+        Promise.resolve("B 成功"),
+        Promise.resolve("C 成功"),
+      ])
+        .then((result) => {
+          console.log("第一個成功結果：", result);
+        })
+        .catch((error) => {
+          console.log("全部失敗 : ", error);
+        });
+    </script>
+  </body>
+</html>
