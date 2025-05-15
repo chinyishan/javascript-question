@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event-Loop事件循環 & Stack 堆疊 & Queue 佇列</title>
+  </head>
+  <body>
+    <a href="https://www.explainthis.io/zh-hant/swe/what-is-event-loop"
+      >Event-Loop事件循環? Stack 堆疊 & Queue 佇列?</a
+    >
+    <script>
+      console.log(1);
+
+      setTimeout(function () {
+        console.log(2);
+      }, 0);
+
+      Promise.resolve()
+        .then(function () {
+          console.log(3);
+        })
+        .then(function () {
+          console.log(4);
+        });
+
+      // output: 1342
+
+      for (var i = 1; i <= 5; i++) {
+        setTimeout(function () {
+          console.log(i, "var");
+        }, 0);
+      }
+      // output: 連續 6
+
+      /** 誰先印出 : 方法 1*/
+      // for (let i = 1; i <= 5; i++) {
+      //   setTimeout(function () {
+      //     console.log(i, "方法 1");
+      //   }, 0);
+      // }
+
+      /** 誰先印出 : 方法 2*/
+      // for (var i = 1; i <= 5; i++) {
+      //   (function (x) {
+      //     setTimeout(function () {
+      //       console.log(x, "方法 2 ");
+      //     }, 0);
+      //   })(i);
+      // }
+
+      /**
+       * Stack 堆疊 & Queue 佇列
+       */
+      // push 從最頂端加入
+      // pop 從最頂端
+      class Stack {
+        constructor() {
+          this.list = [];
+        }
+        // 從最頂端加入
+        push(ele) {
+          this.list.push(ele);
+        }
+        // 從最頂端移除
+        pop() {
+          return this.list.pop();
+        }
+        // 總共堆了幾個元素
+        size() {
+          return this.list.length;
+        }
+        // 看最上面是甚麼
+        top() {
+          return this.list[this.list.length - 1];
+        }
+        // 通通刪掉
+        clear() {
+          this.list = [];
+        }
+      }
+
+      let stack = new Stack();
+      stack.push("盤子 1");
+      stack.push("盤子 2");
+
+      console.log(stack.size());
+    </script>
+  </body>
+</html>

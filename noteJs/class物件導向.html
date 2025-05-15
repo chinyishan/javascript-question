@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>class物件導向</title>
+  </head>
+  <body>
+    <a href="">class物件導向</a>
+    <script>
+      /**
+       * Class（ES6）
+       * 底層仍使用 prototype
+       * 強制用 new 呼叫
+       * 支援繼承語法: extends / super()
+       */
+      class Person {
+        constructor(name) {
+          // constructor() 是建構函式，物件建立時會自動執行
+          this.name = name;
+        }
+
+        // 方法會自動加在 Person.prototype 上（共用）
+        sayHi() {
+          console.log(`Hi, I'm ${this.name}`);
+        }
+      }
+
+      const user = new Person("Alice");
+      user.sayHi(); // Hi, I'm Alice
+
+      // ------------------------------------------------------
+
+      /**
+       * 傳統函式構造函式：
+       */
+      function Person2(name) {
+        this.name = name;
+      }
+
+      // 方法定義方式，需手動掛在 Function.prototype
+      Person2.prototype.sayHi = function () {
+        console.log(`Hi, I'm ${this.name}`);
+      };
+    </script>
+  </body>
+</html>

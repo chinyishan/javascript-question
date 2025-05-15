@@ -51,6 +51,18 @@
 
       console.log(val);
       console.log(addUserName("sunny"));
+
+      function show() {
+        console.log(this);
+      }
+
+      const obj = {
+        name: "Sunny",
+        show: show,
+      };
+
+      obj.show(); // this → obj
+      show(); // this → window（非嚴格）或 undefined（嚴格模式）
     </script>
   </body>
 </html>
