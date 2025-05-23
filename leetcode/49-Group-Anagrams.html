@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>49-Group-Anagrams.html</title>
+  </head>
+  <body>
+    <a href="https://leetcode.com/problems/group-anagrams/description/"
+      >給你一個字串陣列
+      strs，請你將是變位詞的字串（anagrams）分組，回傳這些分組。</a
+    >
+    <script>
+      /**
+       * Input: strs = ["eat","tea","tan","ate","nat","bat"]
+       * Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+       */
+
+      /**
+       * @param {string[]} strs
+       * @return {string[][]}
+       */
+      var groupAnagrams = function (strs) {
+        const map = new Map();
+        for (let str of strs) {
+          const key = str.split("").sort().join("");
+
+          // 檢查有無key
+          if (map.has(key)) {
+            map.get(key).push(str);
+            // push 到已存在的陣列
+          } else {
+            map.set(key, [str]);
+            // 建一個新陣列 [str] 並 map.set(key, [...])
+          }
+        }
+        return [...map.values()];
+      };
+
+      groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]);
+
+      /**
+       * 1. 字串 → 排序 → key
+       * 2. key 存在 → push
+       * 3. key 不存在 → set
+       * 4. 最後回傳 values 陣列
+       */
+    </script>
+  </body>
+</html>
